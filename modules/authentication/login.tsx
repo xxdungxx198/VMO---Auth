@@ -4,7 +4,7 @@ import Cookie from "js-cookie";
 import { useRouter } from "next/dist/client/router";
 import React, { useEffect, useState } from "react";
 import Loading from "../../components/loading/loading";
-import { useAuth } from "../../utils/context/authContext";
+import { useAuth } from "../../utils/context/auth-context";
 
 interface PropsLogin {}
 
@@ -79,7 +79,7 @@ const Login: React.FC<PropsLogin> = (props) => {
 
   // Navigate to Reset password form
   function handleResetPassword() {
-    router.push("/resetPassword");
+    router.push("/reset-password");
   }
 
   // Toggle show/hide password

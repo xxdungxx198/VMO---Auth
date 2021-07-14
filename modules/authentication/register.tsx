@@ -2,7 +2,7 @@ import router from "next/dist/client/router";
 import React, { useState } from "react";
 import { lowerCase, upperFirst, trim } from "lodash";
 import Loading from "../../components/loading/loading";
-import { useAuth } from "../../utils/context/authContext";
+import { useAuth } from "../../utils/context/auth-context";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import styles from "./styles.module.css";

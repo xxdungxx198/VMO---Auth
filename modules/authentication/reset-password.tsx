@@ -2,7 +2,7 @@ import React, { FC, useState } from "react";
 import { useRef } from "react";
 import Loading from "../../components/loading/loading";
 import { useRouter } from "next/dist/client/router";
-import { useAuth } from "../../utils/context/authContext";
+import { useAuth } from "../../utils/context/auth-context";
 
 interface PropsResetPassword {}
 
@@ -24,7 +24,7 @@ const ResetPassword: React.FC<PropsResetPassword> = (props) => {
     try {
       setLoading(true);
       await resetPassword(emailRef.current.value);
-      setSuccess('Success! Now check your email for further information')
+      setSuccess("Success! Now check your email for further information");
     } catch {
       setFailure("Fail to reset password");
     }

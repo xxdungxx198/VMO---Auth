@@ -1,6 +1,6 @@
 import router from "next/router";
 import React, { useState } from "react";
-import { useAuth } from "../../utils/context/authContext";
+import { useAuth } from "../../utils/context/auth-context";
 
 interface PropsDashboard {}
 
@@ -10,7 +10,7 @@ export const Dashboard: React.FC<PropsDashboard> = (props) => {
   async function handleLogOut() {
     try {
       await logout();
-      router.push('/login')
+      router.push("/login");
     } catch {
       alert;
     }

@@ -57,7 +57,6 @@ const AuthProvider: React.FC<PropsUser> = (props) => {
       .signInWithPopup(provider)
       .then((res) => {
         if (res.user) {
-          // localStorage.setItem("user", res.user.displayName);
           setCurrentUser(res.user);
           router.push("/admin");
         }
