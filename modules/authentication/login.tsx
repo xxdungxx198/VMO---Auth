@@ -14,12 +14,10 @@ interface FormValues {
 }
 
 const Login: React.FC<PropsLogin> = (props) => {
-  // State
   const [values, setValues] = useState<FormValues>({
     email: "",
     password: "",
   });
-
   const [remember, setRemember] = useState<boolean>(false);
   const [failure, setFailure] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
@@ -36,7 +34,6 @@ const Login: React.FC<PropsLogin> = (props) => {
   } = useAuth();
 
   // Submit form
-
   const handleChangeEmail = (e) => {
     setValues((prev) => ({ ...prev, email: e.target.value }));
     setFailure("");
@@ -46,11 +43,19 @@ const Login: React.FC<PropsLogin> = (props) => {
     setValues((prev) => ({ ...prev, password: e.target.value }));
   };
 
+  // Remember function
+  const handleChangeCheckbox = () => {
+    setRemember(!remember);
+  };
+
   async function handleSubmit(e) {
     e.preventDefault();
     try {
       setLoading(true);
       await login(values.email, values.password);
+      remember
+        ? Cookie.set("email", values.email, { expires: 99999999 })
+        : Cookie.remove("email");
       router.push("/admin");
     } catch {
       setFailure("Incorrect username or password");
@@ -80,17 +85,8 @@ const Login: React.FC<PropsLogin> = (props) => {
   // Toggle show/hide password
   function showPassword() {
     setShow(!show);
+    if (!remember) Cookie.remove("email");
   }
-
-  // Remember function
-  const handleChangeCheckbox = (e) => {
-    if (e.target.checked) {
-      Cookie.set("email", values.email, { expires: 999999999 });
-    } else {
-      Cookie.remove("email");
-    }
-    setRemember(e.target.checked);
-  };
 
   useEffect(() => {
     const tempEmail = Cookie.get("email") || "";
@@ -154,7 +150,7 @@ const Login: React.FC<PropsLogin> = (props) => {
                   color="primary"
                   checked={remember}
                   inputProps={{ "aria-label": "white checkbox" }}
-                  onChange={handleChangeCheckbox}
+                  onClick={handleChangeCheckbox}
                 />
               </a>
             </div>

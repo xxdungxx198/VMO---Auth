@@ -32,7 +32,6 @@ interface FormValues {
 }
 
 const Register: React.FC<PropsRegister> = (props) => {
-  // State
   const [values, setValues] = useState<FormValues>({
     email: "",
     password: "",
@@ -44,7 +43,8 @@ const Register: React.FC<PropsRegister> = (props) => {
     confirmPassword: "",
   });
   const [loading, setLoading] = useState<boolean>(false);
-  const [show, setShow] = useState<boolean>(false);
+  const [passwordShow, setPasswordShow] = useState<boolean>(false);
+  const [confirmShow, setConfirmShow] = useState<boolean>(false);
   const [message, setMessage] = useState<string>("");
   const [guide, setGuide] = useState<boolean>(false);
   const { register } = useAuth();
@@ -68,6 +68,7 @@ const Register: React.FC<PropsRegister> = (props) => {
     }
   }
 
+  // Show password requirement
   const handleGuide = () => {
     setGuide(!guide);
   };
@@ -77,8 +78,13 @@ const Register: React.FC<PropsRegister> = (props) => {
     router.push("/login");
   }
 
+  // Show password
   function showPassword() {
-    setShow(!show);
+    setPasswordShow(!passwordShow);
+  }
+
+  function showConfirmPassword() {
+    setConfirmShow(!confirmShow);
   }
 
   const handleChange = (key: keyof FormValues, value: string) => {
@@ -158,7 +164,7 @@ const Register: React.FC<PropsRegister> = (props) => {
             <div className="flex relative flex-col">
               <label className="text-discord text-15px py-2 ">PASSWORD</label>
               <input
-                type={`${show ? "text" : "password"}`}
+                type={`${passwordShow ? "text" : "password"}`}
                 onChange={(e) => handleChange("password", e.target.value)}
                 className={`mb-1 text text-1xl text-white bg-input border-black h-12  border-1 rounded border-opacity-25 hover:border-opacity-100 transform duration-200 ${
                   errors.password
@@ -173,7 +179,7 @@ const Register: React.FC<PropsRegister> = (props) => {
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className={`h-5 w-5 mr-2 ${
-                    show ? "text-white" : "text-discord"
+                    passwordShow ? "text-white" : "text-discord"
                   } transform duration-200`}
                   viewBox="0 0 20 20"
                   fill="currentColor"
@@ -195,7 +201,7 @@ const Register: React.FC<PropsRegister> = (props) => {
                 CONFIRM PASSWORD
               </label>
               <input
-                type={`${show ? "text" : "password"}`}
+                type={`${confirmShow ? "text" : "password"}`}
                 onChange={(e) =>
                   handleChange("confirmPassword", e.target.value)
                 }
@@ -206,13 +212,13 @@ const Register: React.FC<PropsRegister> = (props) => {
                 } outline-none px-2`}
               />
               <span
-                onClick={showPassword}
+                onClick={showConfirmPassword}
                 className="absolute right-0 text-white bottom-4 cursor-pointer"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className={`h-5 w-5 mr-2 ${
-                    show ? "text-white" : "text-discord"
+                    confirmShow ? "text-white" : "text-discord"
                   } transform duration-200`}
                   viewBox="0 0 20 20"
                   fill="currentColor"
