@@ -102,6 +102,7 @@ const Login: React.FC<PropsLogin> = (props) => {
           <p className="h-3 text-danger text-xl">{failure}</p>
           <form onSubmit={handleSubmit} className="flex flex-col">
             <label className="text-discord text-15px py-2">EMAIL</label>
+
             <input
               value={values.email}
               onChange={handleChangeEmail}
