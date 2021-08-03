@@ -7,57 +7,88 @@ interface PropsDashboard {}
 export const Dashboard: React.FC<PropsDashboard> = (props) => {
   const { logout, currentUser } = useAuth();
   const [toggleOption, setToggleOptios] = useState<boolean>(false);
-  async function handleLogOut() {
+  const [toggleMenu, setToggleMenu] = useState<boolean>(true);
+
+  const handleLogOut = async () => {
     try {
       await logout();
       router.push("/login");
     } catch {
       alert;
     }
-  }
+  };
 
-  function handleOptions() {
+  const handleOptions = () => {
     setToggleOptios(!toggleOption);
-  }
+  };
+
+  const handleMenu = () => {
+    setToggleMenu(!toggleMenu);
+  };
 
   return (
-    <div>
-      <div className="relative grid grid-cols-6 relative">
-        <div className="bg-discord">
-          <div className="flex flex-col justify-center justify-content-between relative h-screen">
-            <a className="block text-white text-center text-decoration-none text-4xl">
-              VMO
-            </a>
-          </div>
-          <nav className="text-white"></nav>
-        </div>
-        <div className="relative col-span-5 h-screen bg-light ">
-          <div className="bg-white shadow-2xl flex justify-content-end items-center py-2 px-3">
-            <p className="inline font-bold m-0 mx-2">
-              {currentUser.displayName !== null ? currentUser.displayName : ""}
-            </p>
-            <button onClick={handleOptions} className="inline">
-              <img
-                src={currentUser.photoURL !== null ? currentUser.photoURL : ""}
-                className=" rounded-full w-8 h-8"
-              ></img>
-            </button>
-          </div>
-          <div className="">
-            <h1>Hello</h1>
-          </div>
-        </div>
-        <div
-          className={`absolute right-0 top-12 ${
-            toggleOption ? "visible" : "invisible"
-          }`}
-        >
+    <div className="flex min-h-screen relative">
+      <div
+        className={`bg-discord w-80 text-white inset-y-0 left-0 absolute transform md:relative transition duration-200  ease-in-out ${
+          toggleMenu ? "md:translate-x-0 -translate-x-full" : ""
+        } `}
+      >
+        <div className="relative flex items-center justify-content-center py-2">
           <button
-            onClick={handleLogOut}
-            className="p-2 font-bold bg-white shadow-2xl border border-current"
+            onClick={handleMenu}
+            className="absolute md:hidden pl-4 left-0"
           >
-            Logout
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
           </button>
+          <p className="m-0 text-3xl font-bold">VMO</p>
+        </div>
+      </div>
+      <div className="flex-1 bg-gray-400">
+        <div className="bg-white  items-center relative">
+          <div className="absolute right-6 top-16 bg-white p-2">
+            <button onClick={handleLogOut}>Logout</button>
+          </div>
+          <div className="py-2 flex justify-content-between">
+            <button onClick={handleMenu} className="md:invisible pl-4">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            </button>
+            <div className="flex">
+              <button onClick={handleOptions} className="inline px-4">
+                <img
+                  src={
+                    currentUser.photoURL !== null ? currentUser.photoURL : ""
+                  }
+                  className=" rounded-full w-10 h-10"
+                ></img>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -104,6 +104,7 @@ const Login: React.FC<PropsLogin> = (props) => {
             <label className="text-discord text-15px py-2">EMAIL</label>
 
             <input
+              spellCheck="false"
               value={values.email}
               onChange={handleChangeEmail}
               className="mb-1 text-1xl text-white bg-input border-black h-12  border-1 rounded border-opacity-25 hover:border-opacity-100 transform duration-200 focus:ring focus:ring-blue-300
